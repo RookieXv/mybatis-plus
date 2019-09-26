@@ -1,0 +1,22 @@
+server:
+  port: 8089
+  servlet:
+    context-path: /
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://172.30.7.143:3306/wxyj_sj?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: wxyj
+    password: 123456
+
+mybatis-plus:
+  # xml地址
+  mapper-locations: classpath*:mapper/*/*Mapper.xml
+  # 实体扫描，多个package用逗号或者分号分隔 #自己的实体类地址
+  type-aliases-package: com.example.mybatisplus
+  configuration:
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #开启驼峰命名法
+    map-underscore-to-camel-case: true
