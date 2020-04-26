@@ -4,19 +4,69 @@ server:
     context-path: /
 
 spring:
+  main:
+    allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注册
+
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://172.30.7.143:3306/wxyj_sj?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
-    username: wxyj
-    password: 123456
+    druid:
+      ##################    JDBC 配置    ################
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/shiro?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+      username: root
+      password: admin
+      ##################    连接池配置    ################
+      db-type: com.alibaba.druid.pool.DruidDataSource
+      #连接池建立时创建的初始化连接数
+      initial-size: 5
+      #连接池中最大的活跃连接数
+      max-active: 20
+      #连接池中最小的活跃连接数
+      min-idle: 5
+      # 配置获取连接等待超时的时间
+      max-wait: 60000
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      #spring.datasource.druid.max-open-prepared-statements= #和上面的等价
+      validation-query: SELECT 1 FROM DUAL
+      validation-query-timeout: 30000
+      #是否在获得连接后检测其可用性
+      test-on-borrow: false
+      #是否在连接放回连接池后检测其可用性
+      test-on-return: false
+      #是否在连接空闲一段时间后检测其可用性
+      test-while-idle: true
+      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      filters: start,wall
+      # WebStatFilter配置
+      web-stat-filter:
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+        url-pattern: /*
+        enabled: true
+      # StatViewServlet配置
+      stat-view-servlet:
+        url-pattern: /druid/*
+        # 登录名
+        login-username: wxyj
+        # 登录密码
+        login-password: 123456
+        # IP白名单(没有配置或者为空，则允许所有访问)
+        allow: ''
+        # IP黑名单 (存在共同时，deny优先于allow)
+        deny: ''
+        #  禁用HTML页面上的“Reset All”功能
+        reset-enable: false
 
 mybatis-plus:
-  # xml��ַ
+  # xml地址
   mapper-locations: classpath*:mapper/*/*Mapper.xml
-  # ʵ��ɨ�裬���package�ö��Ż��߷ֺŷָ� #�Լ���ʵ�����ַ
+  # 实体扫描，多个package用逗号或者分号分隔 #自己的实体类地址
   type-aliases-package: com.example.mybatisplus
   configuration:
-    # ������ûὫִ�е�sql��ӡ�������ڿ�������Ե�ʱ�������
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    #�����շ�������
+    #开启驼峰命名法
     map-underscore-to-camel-case: true
+
+logging:
+  level: info

@@ -14,15 +14,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Copyright (C), 2016-2019, Mobius-Vision
+ * FileName: CodeGeneratorDefault
+ * Author: liuwenxu
+ * Date: 2019/08/08 11:27
+ * Description: mybatis-plus 代码生成
+ */
 public class CodeGenerator {
-
-
     /**
-     * <p>
      * 读取控制台内容
-     * </p>
+     *
+     * @param tip
+     * @return
      */
-
     public static String scanner(String tip) {
         Scanner scanner = new Scanner(System.in);
         StringBuilder help = new StringBuilder();
@@ -42,28 +47,25 @@ public class CodeGenerator {
         AutoGenerator mpg = new AutoGenerator();
 
         // 全局配置
-        GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(projectPath + "/src/main/java");
-        gc.setAuthor("liuwenxu");
-        gc.setOpen(false);
-        gc.setSwagger2(true); // 实体属性 Swagger2 注解
-        mpg.setGlobalConfig(gc);
+        GlobalConfig gc = new GlobalConfig()
+                .setOutputDir(projectPath + "/src/main/java")
+                .setAuthor("liuwenxu")
+                .setOpen(false)
+                .setSwagger2(true); // 实体属性 Swagger2 注解
 
         // 数据源配置
-        DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://172.30.7.143:3306/wxyj_sj?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false");
-        // dsc.setSchemaName("public");
-        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-        dsc.setUsername("wxyj");
-        dsc.setPassword("123456");
-        mpg.setDataSource(dsc);
+        DataSourceConfig dsc = new DataSourceConfig()
+                .setUrl("jdbc:mysql://localhost:3306/shiro?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false")
+                // dsc.setSchemaName("public")
+                .setDriverName("com.mysql.cj.jdbc.Driver")
+                .setUsername("root")
+                .setPassword("admin");
 
         // 包配置
-        PackageConfig pc = new PackageConfig();
-        pc.setModuleName(scanner("模块名"));
-        pc.setParent("com.example");
-        mpg.setPackageInfo(pc);
+        PackageConfig pc = new PackageConfig()
+                .setModuleName(scanner("模块名"))
+                .setParent("com.example");
 
         // 自定义配置
         InjectionConfig cfg = new InjectionConfig() {
@@ -82,33 +84,36 @@ public class CodeGenerator {
             }
         });
         cfg.setFileOutConfigList(focList);
-        mpg.setCfg(cfg);
 
         // 配置模板
-        TemplateConfig templateConfig = new TemplateConfig();
-
-        // 配置自定义输出模板
         //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
-        templateConfig.setEntity("templates/entity-mine.java");
-        templateConfig.setMapper("templates/mapper-mine.java");
-        templateConfig.setService("templates/service-mine.java");
-        templateConfig.setServiceImpl("templates/serviceImpl-mine.java");
-        templateConfig.setController("templates/controller-mine.java");
-        templateConfig.setXml(null);
-        mpg.setTemplate(templateConfig);
+        TemplateConfig templateConfig = new TemplateConfig()
+                .setEntity("templates/entity-mine.java")
+                .setMapper("templates/mapper-mine.java")
+                .setService("templates/service-mine.java")
+                .setServiceImpl("templates/serviceImpl-mine.java")
+                .setController("templates/controller-mine.java")
+                .setXml(null);
 
         // 策略配置
-        StrategyConfig strategy = new StrategyConfig();
-        strategy.setNaming(NamingStrategy.underline_to_camel);
-        strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        //strategy.setSuperEntityClass("com.baomidou.ant.common.BaseEntity");
-        strategy.setEntityLombokModel(true);
-        strategy.setRestControllerStyle(true);
-        //strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
-        strategy.setInclude(scanner("表名"));
-        //strategy.setSuperEntityColumns("id");
-        strategy.setControllerMappingHyphenStyle(true);
-        strategy.setTablePrefix("_");
+        StrategyConfig strategy = new StrategyConfig()
+                .setNaming(NamingStrategy.underline_to_camel)
+                .setColumnNaming(NamingStrategy.underline_to_camel)
+                //.setSuperEntityClass("com.baomidou.ant.common.BaseEntity")
+                .setEntityLombokModel(true)
+                .setRestControllerStyle(true)
+                //strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
+                .setInclude(scanner("表名"))
+                //strategy.setSuperEntityColumns("id");
+                .setControllerMappingHyphenStyle(true)
+                .setTablePrefix("_");
+
+        mpg.setGlobalConfig(gc);
+        mpg.setDataSource(dsc);
+        mpg.setPackageInfo(pc);
+        mpg.setCfg(cfg);
+        mpg.setTemplate(new TemplateConfig().setXml(null));
+        mpg.setTemplate(templateConfig);
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();
