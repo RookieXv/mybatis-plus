@@ -65,7 +65,7 @@ public class CodeGeneratorDefault {
         // 包配置
         PackageConfig pc = new PackageConfig()
                 .setModuleName(scanner("模块名"))
-                .setParent("com.example");
+                .setParent("com.liuwenxu");
 
         // 自定义配置
         InjectionConfig cfg = new InjectionConfig() {

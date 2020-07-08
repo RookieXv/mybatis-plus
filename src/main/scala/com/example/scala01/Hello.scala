@@ -1,4 +1,4 @@
-package com.example.scala01
+package com.liuwenxu.scala01
 
 object Hello {
   def main(args: Array[String]): Unit = {
