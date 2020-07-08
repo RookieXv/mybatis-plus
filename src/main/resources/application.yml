@@ -68,5 +68,5 @@ mybatis-plus:
     #开启驼峰命名法
     map-underscore-to-camel-case: true
 
-logging:
-  level: info
+#logging:
+#  level: info
