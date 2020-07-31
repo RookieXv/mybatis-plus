@@ -21,7 +21,7 @@ public class CopyOnWriteArrayListTest {
 //        List<Long> synchronizedList = Collections.synchronizedList(list);
         List<Long> list = new CopyOnWriteArrayList<>();
 
-        // 并发修改异常：Exception in thread "线程0" java.util.ConcurrentModificationException
+        // 并发修改异常：Exception in thread "线程0" java.util.Concurren1tModificationException
         /*
           new ArrayList<>(); JDK 1.2
           解决方案：
