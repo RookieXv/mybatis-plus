@@ -1,5 +1,7 @@
 package com.liuwenxu.juc;
 
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 /**
  * Copyright (C), 2015-2020, https://www.liuwenxu.com/
  * FileName: Demo0
@@ -10,10 +12,9 @@ package com.liuwenxu.juc;
 public class Demo0 {
     public static void main(String[] args) {
 
-        new Thread().start();
-
         // 获取cpu的核数
         System.out.println(Runtime.getRuntime().availableProcessors());
+        System.out.println(13&17);//1
     }
 }
 
