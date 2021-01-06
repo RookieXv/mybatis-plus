@@ -34,7 +34,5 @@ public class CyclicBarrierTest {
                 }
             }).start();
         }
-
-
     }
 }

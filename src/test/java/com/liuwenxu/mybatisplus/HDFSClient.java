@@ -24,7 +24,7 @@ public class HDFSClient {
     @Before
     public void getFS() {
         try {
-            fs = FileSystem.get(URI.create("hdfs://hadoop001:9000"), new Configuration(), "lwx");
+            fs = FileSystem.get(URI.create("hdfs://hadoop130:9870"), new Configuration(), "atlwx");
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
