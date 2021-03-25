@@ -11,7 +11,7 @@ spring:
     druid:
       ##################    JDBC 配置    ################
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/learn?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+      url: jdbc:mysql://localhost:3306/learn?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
       username: root
       password: 1q2w3e
       ##################    连接池配置    ################

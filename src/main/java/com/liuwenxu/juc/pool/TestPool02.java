@@ -25,7 +25,7 @@ public class TestPool02 {
 
 
         try {
-            for (int i = 1; i <= 9; i++) {
+            for (int i = 1; i <= 6; i++) {
                 threadPool.execute(() -> {
                     System.out.println(Thread.currentThread().getName() + "-ok");
                     try {
